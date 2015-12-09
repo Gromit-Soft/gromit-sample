@@ -1,0 +1,238 @@
+defaultTasks 'extractGromitJS', 'jettyRun'
+
+apply plugin: 'war'
+apply plugin: 'jetty'
+apply plugin: 'maven'
+
+group = 'org.gromitsoft'
+version = '0.1-SNAPSHOT'
+
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+    maven {
+        url 'http://oss.sonatype.org/content/groups/public'
+    }
+}
+
+configurations {
+    api
+}
+
+dependencies {
+    providedCompile 'org.apache.tomcat:tomcat-servlet-api:7.0.37'    
+    api 'org.gromitsoft:gromit:0.1-SNAPSHOT'
+}
+
+/*
+ * This section deals with processing and combining JavaScript files.  Our JavaScript files have some specific
+ * dependencies where we must load some files ahead of others.  This section specifies the file tree in a specific
+ * order so our JavaScript dependencies are loaded properly in the index.html file.
+ */
+FileCollection jsFiles = files('src/main/app/js/main.js')
+    
+jsFiles = jsFiles + fileTree(
+    dir: 'src/main/app/js', 
+    includes: ['*.js'],
+    excludes: ['main.js'])
+    
+jsFiles = jsFiles + fileTree(
+    dir: 'src/main/app/js', 
+    includes: ['directives/**', 'services/**', 'controllers/**'], 
+    excludes: ['**/services/i18n/*'])
+    
+buildscript {
+  repositories {
+      mavenCentral()
+      mavenLocal()
+      maven {
+          url 'http://oss.sonatype.org/content/groups/public'
+      }
+  }
+  dependencies {
+    classpath 'com.eriwen:gradle-js-plugin:1.12.0'
+    classpath 'com.eriwen:gradle-css-plugin:1.11.1'
+  }
+}
+
+apply plugin: "com.eriwen.gradle.js"
+apply plugin: 'css'
+
+minifyJs {
+    source = jsFiles
+    dest = file("${buildDir}/js/gromit-sample-min.js")
+    closure {
+        warningLevel = 'DEFAULT'
+        compilationLevel = 'WHITESPACE_ONLY'
+    }
+}
+
+gzipJs {
+	doFirst() {
+	    println ':gzipJs'
+	}
+    source = file("${buildDir}/js/gromit-sample-all-min.js")
+    dest = file("${buildDir}/js/gromit-sample-all-min.js.gz")
+}
+
+/*
+ * This is a little class and task that can concatenate files.  We use it to bundle all 
+ * of our JavaScript libraries into a single file.  Ideally we should be GZIPing the bundle
+ * as well, but I haven't had time for that part yet.
+ */
+class ConcatFiles extends DefaultTask {
+    @InputFiles
+    FileCollection files
+    @OutputFile
+    File target
+    @TaskAction
+    void concat() {
+        target.withWriter { writer ->
+            files.each { file ->
+                file.withReader { reader ->
+                    writer << reader << '\n'
+                }
+            }
+        }
+    }
+}
+
+task concatLibFiles(type: ConcatFiles) {
+    files = files(
+        'build/js/gromit-sample-min.js')
+    target = file('build/js/gromit-sample-all-min.js')
+}
+
+/*
+ * This section minimizes and combines our CSS files
+ */
+FileCollection cssSourceFiles = files('src/main/app/css/reset.css')
+
+FileTree cssSourceFilesTree = fileTree(dir: 'src/main/app/css')
+cssSourceFilesTree.include '*.css'
+cssSourceFilesTree.exclude 'reset.css'
+cssSourceFiles = cssSourceFiles + cssSourceFilesTree
+
+combineCss {
+    source = cssSourceFiles
+    dest = "${buildDir}/css/gromit-sample-all.css"
+}
+
+minifyCss {
+    source = "${buildDir}/css/gromit-sample-all.css"
+    dest = "${buildDir}/css/gromit-sample-all-min.css"
+    yuicompressor { // Optional
+        lineBreakPos = -1
+    }
+}
+
+gzipCss {
+	doFirst() {
+	    println ':gzipCss'
+	}
+    source = "${buildDir}/css/gromit-sample-all-min.css"
+    dest = "${buildDir}/css/gromit-sample-all-min.css.gz"
+}
+
+/*
+ * We want to call JSHint on the command line so we can use the NodeJS version
+ * of it.
+ */
+task jsHint(type:Exec) {
+	doFirst() {
+	    println ':jsHint'
+	}
+    description = 'This task handles calling JSHint for the JavaScript files in the project.'
+    ignoreExitValue = true
+    
+	
+	if (org.apache.tools.ant.taskdefs.condition.Os.isFamily(org.apache.tools.ant.taskdefs.condition.Os.FAMILY_WINDOWS)) {
+		commandLine 'cmd', '/c', 'jshint'
+	} else {
+		workingDir '.'
+		executable 'jshint'
+	}
+    args jsFiles
+	
+	logger.info('jsHint commandLine: ' + commandLine)
+    doLast {
+        if (execResult.exitValue != 0) {
+            throw new GradleScriptException("There were JSHint errors.  Look above and fix the issues.", null);
+        }
+    }
+}
+
+task extractGromit(type: Copy) {
+	doFirst() {
+	    println ':extractGromit'
+    }
+    description = 'This task extracts files from the Gromit artifact'
+    from {
+        configurations.api.collect { zipTree(it) }
+    } 
+    into "$buildDir/gromit/"
+}
+
+task extractGromitCSS(dependsOn: 'extractGromit', type: Copy) {
+	doFirst() {
+	    println ':extractGromitCSS'
+    }
+     
+    description = 'This task extracts files from the Gromit artifact'
+    from "$buildDir/gromit/css"
+    into "src/main/app/gromit/css"
+}
+
+task extractGromitJS(dependsOn: 'extractGromitCSS', type: Copy) {
+	doFirst() {
+	    println ':extractGromitJS'
+	}
+    description = 'This task extracts files from the Gromit artifact'
+    from "$buildDir/gromit/js"
+    into "src/main/app/gromit/js"
+}
+
+clean {
+    delete new File(project.projectDir, 'src/main/app/gromit')
+}
+
+war {
+    from 'src/main/app'
+    from('build/js') {
+        include '*'
+        into('js')
+    }
+    
+    from('build/css') {
+        include '*'
+        into('css')
+    }
+}
+
+war.doFirst {
+    tasks.jsHint.execute()
+    tasks.minifyJs.execute()
+    tasks.concatLibFiles.execute()
+    tasks.gzipJs.execute()
+    
+    tasks.combineCss.execute()
+    tasks.minifyCss.execute()
+    tasks.gzipCss.execute()
+}
+
+jettyRun.doFirst {
+    
+}
+
+jettyRun {
+    webAppSourceDirectory file('src/main/app/')
+    httpPort 8081
+    contextPath '/'
+    webXml file('src/main/webapp/WEB-INF/web.xml')
+}
+
+jettyRunWar {
+    httpPort 8081
+    contextPath '/'
+}

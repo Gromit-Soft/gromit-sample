@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html ng-app="gromitSample">
+
+<head>
+
+    <title>Gromit Sample</title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
+
+    <script type="text/javascript" src="js/lib/jquery.min.js"></script>
+    <script type="text/javascript" src="js/lib/jquery-ui.js"></script>
+    <script type="text/javascript" src="js/lib/jquery.cookie.js"></script>
+    
+    <script type="text/javascript" src="js/lib/angular.js"></script>
+    <script type="text/javascript" src="js/lib/angular-route.js"></script>
+    <script type="text/javascript" src="js/lib/ui-bootstrap-tpls.js"></script>
+    
+    <script type="text/javascript" src="js/main.js"></script>
+    
+    <script type="text/javascript">
+        gromit.debugMode = true;
+    </script>
+</head>
+
+<body>
+    <!--<div ng-include src="'partials/mainBody.html'"></div>-->
+    <div id="mainWrap">
+        <div id="main" class="clearfix">
+            <div id="mainBody">
+                <div id="mainContent">
+                    <div ng-view></div>
+                </div>
+            </div>            
+        </div>
+    </div>
+</body>
+
+</html>
