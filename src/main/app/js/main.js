@@ -22,15 +22,12 @@
  */
 var app = angular.module('gromitSample', [
   'ngRoute',
-  'ui.bootstrap',
-  'ui.sortable',
-  'ngTagsInput',
-  'ngAnimate'
+  'ui.bootstrap'
 ]).config(function (datepickerConfig) {
       datepickerConfig.showWeeks = false;
     });
 
-app.run(function($rootScope, $window, $route, localizationService, titleService) {
+app.run(function($rootScope, $window, $route) {
     $window.gromit.init();    
 });
 
@@ -40,10 +37,9 @@ app.run(function($rootScope, $window, $route, localizationService, titleService)
 app.config(['$routeProvider', function($routeProvider, localizationService) {
     $routeProvider.when('/landing', {
         templateUrl: 'views/overview.html',
-        controller: 'landingController',
-        title: 'overview'
+        controller: 'overviewController'
     }).
     otherwise({
-        redirectTo: '/nav'
+        redirectTo: '/landing'
     });
 }]);
