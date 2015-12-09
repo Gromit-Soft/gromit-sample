@@ -21,6 +21,8 @@
  * This controller handles the landing page and the contents of the panels on that page.
  */
 angular.module('gromitSample').controller('overviewController', function($scope, $http, $window) {
-    
+    gromit.get('http://192.168.1.76:8080/api/whoami', $http, function(data, status, headers, config) {
+        $scope.userName = data.principal;
+    });
 
 });
