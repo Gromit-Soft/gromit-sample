@@ -184,7 +184,17 @@ task extractGromitCSS(dependsOn: 'extractGromit', type: Copy) {
     into "src/main/app/gromit/css"
 }
 
-task extractGromitJS(dependsOn: 'extractGromitCSS', type: Copy) {
+task extractGromitHTML(dependsOn: 'extractGromitCSS', type: Copy) {
+	doFirst() {
+	    println ':extractGromitHTML'
+    }
+     
+    description = 'This task extracts files from the Gromit artifact'
+    from "$buildDir/gromit/html"
+    into "src/main/app/"
+}
+
+task extractGromitJS(dependsOn: 'extractGromitHTML', type: Copy) {
 	doFirst() {
 	    println ':extractGromitJS'
 	}
@@ -195,6 +205,7 @@ task extractGromitJS(dependsOn: 'extractGromitCSS', type: Copy) {
 
 clean {
     delete new File(project.projectDir, 'src/main/app/gromit')
+    delete new File(project.projectDir, 'src/main/app/oauth.html')
 }
 
 war {
