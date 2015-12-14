@@ -3,3 +3,4 @@ build
 gradle.properties
 .DS_Store
 src/main/app/gromit
+src/main/app/oauth.html
