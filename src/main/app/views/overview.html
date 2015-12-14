@@ -1,4 +1,11 @@
 Hi there {{userName}}
+<a ng-click="doLogout()" class="logoutLink">Logout</a>
 
 <br /><br />
-<a ng-click="doLogout()">Logout</a>
+
+<h2>Here are some users from the AR server</h2>
+<ul>
+    <li ng-repeat="user in users" class="user">
+        {{$index + 1}}. {{user.name.attributeValue}}
+    </li>
+</ul>

@@ -28,7 +28,9 @@ var app = angular.module('gromitSample', [
     });
 
 app.run(function($rootScope, $window, $route) {
-    $window.gromit.init();    
+    $window.gromit.init();
+    
+    gromit.addCSSLink('css/gromitsample.css');
 });
 
 // important note: if you wish to refresh the page when clicking on the nav link
