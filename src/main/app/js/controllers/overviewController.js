@@ -24,5 +24,10 @@ angular.module('gromitSample').controller('overviewController', function($scope,
     gromit.get('http://192.168.1.76:8080/api/whoami', $http, function(data, status, headers, config) {
         $scope.userName = data.principal;
     });
+    
+    $scope.doLogout = function() {
+        console.log('logout...');
+        gromit.doLogout();
+    };
 
 });
