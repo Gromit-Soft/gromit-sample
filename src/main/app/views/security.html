@@ -1,5 +1,5 @@
 <div class="page-header">
-    <h1>Security</h1>
+    <h1>OAuth2</h1>
 
     <div class="row">
         <div class="col-md-6 show-grid">
@@ -41,10 +41,13 @@
         
         <div class="col-md-6">
             <p>
-                The security plugin provides OAuth support for making REST calls from Angular.  Use it like this:
+                The OAuth2 plugin provides OAuth2 support for making REST calls from Angular.  Use it like this:
             </p>
             
-            <pre><code>gromit.get('http://myserver/myapi', $http, function(data) {
+            <pre><code>gromit.ClientId = 'myClientId';
+gromit.AuthUrl = 'http://myserver/osp/a/idm/auth/oauth2/grant';
+gromit.AuthLogoutUrl = 'http://myserver/osp/a/idm/auth/app/logout'; 
+gromit.get('http://myserver/myapi', $http, function(data) {
     $scope.data = data;
 });</code></pre>
 
