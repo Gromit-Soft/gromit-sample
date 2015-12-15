@@ -4,6 +4,9 @@
     <div class="row">
         <div class="col-md-6 show-grid">
             <h3>Try it out</h3>
+            <p>
+                This little sample works against Access Review and OSP, but this library works against generic servers as well.
+            </p>
 
             <ng-form name="myForm">
                 <div class="form-group">
@@ -12,12 +15,12 @@
                 </div>
 
                 <div class="form-group">
-                    <h4>The location of your API server</h4>
+                    <h4>The location of your Access Review server</h4>
                     <input type="text" class="form-control" ng-model="apiserver" placeholder="http://yourserver:8080" required>
                 </div>
 
                 <div class="form-group">
-                    <h4>The location of your OAuth server</h4>
+                    <h4>The location of your OSP server</h4>
                     <input type="text" class="form-control" ng-model="authserver" placeholder="http://yourserver:8080" required>
                 </div>
 
@@ -27,10 +30,15 @@
             </ng-form>
 
             <div ng-if="userName" class="alert alert-warning dataResults">
-                Hi there {{userName}}
+                <p>
+                    Hi there {{userName}}
+                </p>
                 <a ng-click="doLogout()" class="logoutLink">Logout</a>
     
-                <h4>Here are some users from your AR server</h4>
+                <div class="subtext">
+                    Here are some users from your AR server sorted alphabeticaly by name.
+                </div>
+                
                 <p>
                     <span ng-repeat="user in users" class="user">
                         {{$index + 1}}. {{user.name.attributeValue}}<br />
