@@ -1,0 +1,21 @@
+<div class="page-header">
+    <h1>Anchor with no extra pound sign</h1>
+
+    <div class="row">
+        <div class="col-md-6 show-grid">
+            <a>This anchor won't add an extra point sign to browser location</a>
+        </div>
+        
+        <div class="col-md-6">
+            <p>
+                All anchors should have an href attribute so the anchor can take keyboard focus, but they should consume the click event so you don't add a pound sign or some other extra characters to the browser location.
+            </p>
+            
+            <p>
+                This directive will add an href attribute to all anchors that need one and make sure to consume the click so nothing extra gets added to the browser location bar.
+            </p>
+            
+            <pre><code>&lt;a ng-click="myFunction"&gt;a link&lt;/a&gt;</code></pre>
+        </div>
+    </div>
+</div>
