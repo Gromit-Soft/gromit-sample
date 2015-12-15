@@ -1,0 +1,28 @@
+<div class="page-header">
+    <h1>Integer only text field</h1>
+
+    <div class="row">
+        <div class="col-md-6 show-grid">
+            <input type="text" int-only-input class="intTextBox" ng-model="intValue">
+        </div>
+        
+        <div class="col-md-6">
+            <p>
+                This text field only allows positive integers.  Instead of showing an error this input just blocks all invalid values.  You can use it like this:
+            </p>
+            
+            <pre><code>&lt;input type="text" int-only-input class="intTextBox" ng-model="intValue"&gt;</code></pre>
+            
+            <h3>Integer text box settings</h3>
+            
+            <ul>
+                <li>
+                    <p><code>min</code> - The minimum allowed value</li></p>
+                </li>
+                <li>
+                    <p><code>max</code> - The maximum allowed value</li></p>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
