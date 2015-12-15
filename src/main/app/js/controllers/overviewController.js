@@ -21,26 +21,5 @@
  * This controller handles the landing page and the contents of the panels on that page.
  */
 angular.module('gromitSample').controller('overviewController', function($scope, $http, $window) {
-    gromit.get('http://192.168.1.76:8080/api/whoami', $http, function(data) {
-        $scope.userName = data.principal;
-    });
-    
-    gromit.post('http://192.168.1.76:8080/api/data/users/search/?sortBy=displayName&sortOrder=ASC&indexFrom=0&size=50&showCt=true&listAttr=displayName&listAttr=jobTitle&qMatch=ANY', 
-                $http, '{}', function(data) {
-        $scope.users = [];
-        _.each(data.users, function(user) {
-            $scope.users.push({
-                userId: user.userId,
-                name: _.find(user.attributes, function(att) {
-                    return att.attributeKey === 'displayName';
-                })
-            })
-        });
-    });
-    
-    $scope.doLogout = function() {
-        console.log('logout...');
-        gromit.doLogout();
-    };
 
 });

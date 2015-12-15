@@ -22,7 +22,8 @@
  */
 var app = angular.module('gromitSample', [
   'ngRoute',
-  'ui.bootstrap'
+  'ui.bootstrap',
+  'gromitsoft'
 ]).config(function (datepickerConfig) {
       datepickerConfig.showWeeks = false;
     });
@@ -30,6 +31,8 @@ var app = angular.module('gromitSample', [
 app.run(function($rootScope, $window, $route) {
     $window.gromit.init();
     
+    gromit.addCSSLink('css/lib/bootstrap.min.css');
+    gromit.addCSSLink('css/lib/rainbow.css');
     gromit.addCSSLink('css/gromitsample.css');
 });
 

@@ -1,11 +1,4 @@
-Hi there {{userName}}
-<a ng-click="doLogout()" class="logoutLink">Logout</a>
+<h1>Gromit</h1>
+<h4>A compellingly useful set of utilities for AngularJS</h4>
 
-<br /><br />
-
-<h2>Here are some users from the AR server</h2>
-<ul>
-    <li ng-repeat="user in users" class="user">
-        {{$index + 1}}. {{user.name.attributeValue}}
-    </li>
-</ul>
+<section ng-include src="'views/security.html'" ng-controller="securityController"></section>

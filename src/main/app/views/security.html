@@ -1,0 +1,72 @@
+<div class="page-header">
+    <h1>Security</h1>
+
+    <div class="row">
+        <div class="col-md-6 show-grid">
+            <h3>Try it out</h3>
+
+            <ng-form name="myForm">
+                <div class="form-group">
+                    <h4>Your client ID</h4>
+                    <input type="text" class="form-control" ng-model="clientid" placeholder="iac2" required>
+                </div>
+
+                <div class="form-group">
+                    <h4>The location of your API server</h4>
+                    <input type="text" class="form-control" ng-model="apiserver" placeholder="http://yourserver:8080" required>
+                </div>
+
+                <div class="form-group">
+                    <h4>The location of your OAuth server</h4>
+                    <input type="text" class="form-control" ng-model="authserver" placeholder="http://yourserver:8080" required>
+                </div>
+
+                <div class="form-group">
+                    <button type="button" class="btn btn-default" ng-click="doGetData()" ng-disabled="myForm.$invalid">Get some data</button>
+                </div>
+            </ng-form>
+
+            <div ng-if="userName" class="alert alert-warning dataResults">
+                Hi there {{userName}}
+                <a ng-click="doLogout()" class="logoutLink">Logout</a>
+    
+                <h4>Here are some users from your AR server</h4>
+                <p>
+                    <span ng-repeat="user in users" class="user">
+                        {{$index + 1}}. {{user.name.attributeValue}}<br />
+                    </span>
+                </p>
+            </div>
+        </div>
+        
+        <div class="col-md-6">
+            <p>
+                The security plugin provides OAuth support for making REST calls from Angular.  Use it like this:
+            </p>
+            
+            <pre><code>gromit.get('http://myserver/myapi', $http, function(data) {
+    $scope.data = data;
+});</code></pre>
+
+            <p>
+                This call will handle all authentication and login requests and then return the data from the REST call.  It supports the following functions:
+            </p>
+            
+            <p>
+                <code>gromit.get(url, http, successCallback, errorCallback, unknownErrorCallback)</code> 
+            </p>
+            
+            <p>
+                <code>gromit.post(url, http, data, successCallback, errorCallback, unknownErrorCallback, headers)</code> 
+            </p>
+            
+            <p>
+                <code>gromit.put(url, http, data, successCallback, errorCallback, unknownErrorCallback)</code> 
+            </p>
+            
+            <p>
+                <code>gromit.del(url, http, successCallback, errorCallback, unknownErrorCallback)</code> 
+            </p>
+        </div>
+    </div>
+</div>
