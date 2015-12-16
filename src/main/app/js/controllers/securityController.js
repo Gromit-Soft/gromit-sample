@@ -43,7 +43,7 @@ angular.module('gromitSample').controller('securityController', function($scope,
                     name: _.find(user.attributes, function(att) {
                         return att.attributeKey === 'displayName';
                     })
-                })
+                });
             });
         });
     };

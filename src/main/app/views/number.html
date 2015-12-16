@@ -3,7 +3,7 @@
 
     <div class="row">
         <div class="col-md-6 show-grid">
-            <input type="text" number-only-input class="intTextBox" ng-model="numValue">
+            <input type="text" gr-number-only-input class="intTextBox" ng-model="numValue">
         </div>
         
         <div class="col-md-6">
@@ -11,7 +11,18 @@
                 This text field only allows positive numbers.  Instead of showing an error this input just blocks all invalid values.  You can use it like this:
             </p>
             
-            <pre><code>&lt;input type="text" number-only-input class="intTextBox" ng-model="numValue"&gt;</code></pre>
+            <pre><code>&lt;input type="text" gr-number-only-input class="intTextBox" ng-model="numValue"&gt;</code></pre>
+            
+            <h3>Number text box settings</h3>
+            
+            <ul>
+                <li>
+                    <p><code>min</code> - The minimum allowed value.  There is no default value.</li></p>
+                </li>
+                <li>
+                    <p><code>max</code> - The maximum allowed value.  There is no default value.</li></p>
+                </li>
+            </ul>
         </div>
     </div>
 </div>
