@@ -31,8 +31,7 @@ Building Gromit
 
 Gromit is made up of two projects:  the Gromit core (just called Gromit) and the Gromit sample application.  Start by building the Gromit core:
 
-<pre><code>
-cd gromit
+<pre><code>cd gromit
 gradle
 </code></pre>
 
@@ -40,8 +39,7 @@ This build will create the Gromit core artifact and install it in your local Mav
 
 The Gromit sample application contains an embedded server so you can easily run the application.  You can start it like this:
 
-<pre><code>
-cd gromit-sample
+<pre><code>cd gromit-sample
 gradle
 </code></pre>
 
