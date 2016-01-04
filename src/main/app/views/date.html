@@ -1,0 +1,50 @@
+<div class="page-header">
+    <h1>Date and time formatting</h1>
+
+    <div class="row">
+        <div class="col-md-6 show-grid">
+            <p>
+                The current full date and time is: {{fullDateTime}}
+            </p>
+            
+            <p>
+                The current full date: {{fullDate}}
+            </p>
+            
+            <p>
+                The current short date and time: {{shortDateTime}}
+            </p>
+            
+            <p>
+                The current short date: {{shortDate}}
+            </p>
+            
+            <p>
+                New Year's Eve 2016 was {{fromDate}}.
+            </p>
+        </div>
+        
+        <div class="col-md-6">
+            <p>
+                This plugin provides date and time formatting capabilities.  It can also provide date operations like determining the difference between two dates.
+            </p>
+            
+            <p>
+                All date and time functions are localized if the library is initialized with the correct locale like this:
+            </p>
+            
+            <pre><code>gromit.setLocale('en-US');</code></pre>
+            
+            <p>
+                The locale is often set to make sure it matches the locale of the server.  If this function isn't called then the plugin will use the current browser locale.
+            </p>
+            
+            <pre><code>var now = new Date().getTime();
+$scope.fullDateTime = gromit.fullDateTimeFormat(now);
+$scope.fullDate = gromit.fullDateFormat(now);
+$scope.shortDateTime = gromit.shortDateFormat(now);
+$scope.shortDate = gromit.shortDateFormat(now, true);
+$scope.fromDate = gromit.fromNowFormat(1451606400000);</code></pre>
+        </div>
+    </div>
+</div>
