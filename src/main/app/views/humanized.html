@@ -1,0 +1,33 @@
+<div class="page-header">
+    <h1>Transient messages</h1>
+
+    <div class="row">
+        <div class="col-md-6 show-grid">
+            <p>
+                <button class="demoButton" ng-click="showMessage()">Show an information message</button>
+                <button class="demoButton" ng-click="showWarning()">Show a warning message</button>
+                <button class="demoButton" ng-click="showError()">Show an error message</button>
+                <button class="demoButton" ng-click="showFatalError()">Show a fatal error message</button>
+            </p>
+        </div>
+        
+        <div class="col-md-6">
+            <p>
+                Transient messages provide a consistent method of showing short term information from the application.  A common usage of this plugin is to provide feedback that a function was a success.  For example, "Your document was saved."
+            </p>
+            
+            <p>
+                These messages only show up for a few seconds so they should contain simple text with an easy to understand concept.  
+            </p>
+            
+            <p>
+                There are four version of these message:  information, warning, error, and fatal error.  The first three variations all work the same with different colors to indicate the level of the message.  The final variation is used for general errors and shows a longer lasting message.
+            </p>
+            
+            <pre><code>gromit.showMessage('This is a transient information message');
+gromit.showWarningMessage('This is a transient warning message');
+gromit.showErrorMessage('This is a transient error message');
+gromit.showFatalError('This is a fatal error message.');</code></pre>
+        </div>
+    </div>
+</div>
