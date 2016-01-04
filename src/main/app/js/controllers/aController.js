@@ -27,7 +27,7 @@ angular.module('gromitSample').controller('aController', function($scope, $http,
         $scope.alerts.push({
             type: 'success', 
             msg: 'See... no extra pound sign'
-        })
+        });
     };
     
     $scope.closeAlert = function(index) {
