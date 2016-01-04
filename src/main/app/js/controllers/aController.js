@@ -20,6 +20,18 @@
 /* 
  * This controller handles the landing page and the contents of the panels on that page.
  */
-angular.module('gromitSample').controller('overviewController', function($scope, $http, $window) {
+angular.module('gromitSample').controller('aController', function($scope, $http, $window) {
+    
+    $scope.alerts = [];
+    $scope.showMessage = function() {
+        $scope.alerts.push({
+            type: 'success', 
+            msg: 'See... no extra pound sign'
+        })
+    };
+    
+    $scope.closeAlert = function(index) {
+        $scope.alerts.splice(index, 1);
+    };
 
 });
