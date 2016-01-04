@@ -78,6 +78,14 @@ gromit.get('http://myserver/myapi', $http, function(data) {
             <p>
                 <code>gromit.del(url, http, successCallback, errorCallback, unknownErrorCallback)</code> 
             </p>
+            
+            <p>
+                The sample on this page works against AR to get a count of the objects on the server, but this plugin can work against any OAuth2 compliant service.  It works by showing an iFrame with the login page so you don't lose any of the data on the current page.
+            </p>
+            
+            <p>
+                This plugin should be called in the place of the <code>$http</code> object everywhere you want support for OAuth authentication.  The plugin handles all of the authentication the save all requests which happen during the authentication process so they can be replayed after the authentication is complete.  The result is that the authentication is completely transparent to the calling code.
+            </p>
         </div>
     </div>
 </div>
