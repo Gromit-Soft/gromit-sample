@@ -22,30 +22,33 @@
  */
 angular.module('gromitSample').controller('securityController', function($scope, $http, $window) {
     
-    $scope.clientid = 'iac2';
-    $scope.authserver = 'http://192.168.1.76:8080';
-    $scope.apiserver = 'http://192.168.1.76:8080';
+    $scope.secData = {};
+    
+    $scope.secData.clientid = 'iac2';
+    $scope.secData.authserver = 'http://192.168.1.76:8080';
+    $scope.secData.apiserver = 'http://192.168.1.76:8080';
     
     $scope.doGetData = function() {
-        gromit.ClientId = $scope.clientid;
-        gromit.AuthUrl = $scope.authserver + '/osp/a/idm/auth/oauth2/grant';
-        gromit.AuthLogoutUrl = $scope.authserver + '/osp/a/idm/auth/app/logout';        
-        gromit.get($scope.apiserver + '/api/whoami', $http, function(data) {
+        gromit.ClientId = $scope.secData.clientid;
+                
+        gromit.AuthUrl = $scope.secData.authserver + '/osp/a/idm/auth/oauth2/grant';
+        gromit.AuthLogoutUrl = $scope.secData.authserver + '/osp/a/idm/auth/app/logout';        
+        gromit.get($scope.secData.apiserver + '/api/whoami', $http, function(data) {
             $scope.userName = data.principal;
-        });
-    
-        gromit.post($scope.apiserver + '/api/data/users/search/?sortBy=displayName&sortOrder=ASC&indexFrom=0&size=50&showCt=true&listAttr=displayName&listAttr=jobTitle&qMatch=ANY', 
-                    $http, '{}', function(data) {
-            $scope.users = [];
-            _.each(data.users, function(user) {
-                $scope.users.push({
-                    userId: user.userId,
-                    name: _.find(user.attributes, function(att) {
-                        return att.attributeKey === 'displayName';
-                    })
+            
+            gromit.post($scope.secData.apiserver + '/api/data/users/search/?sortBy=displayName&sortOrder=ASC&indexFrom=0&size=50&showCt=true&listAttr=displayName&listAttr=jobTitle&qMatch=ANY', 
+                        $http, '{}', function(data) {
+                $scope.users = [];
+                _.each(data.users, function(user) {
+                    $scope.users.push({
+                        userId: user.userId,
+                        name: _.find(user.attributes, function(att) {
+                            return att.attributeKey === 'displayName';
+                        })
+                    });
                 });
             });
-        });
+        });        
     };
     
     $scope.doLogout = function() {
