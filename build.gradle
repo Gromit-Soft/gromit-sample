@@ -1,3 +1,10 @@
+/*******************************************************************************
+ * 
+ * MIT License
+ * Copyright (c) 2015-2016 NetIQ Corporation, a Micro Focus company
+ *
+ ******************************************************************************/
+
 defaultTasks 'extractGromitJS', 'jettyRun'
 
 apply plugin: 'war'
