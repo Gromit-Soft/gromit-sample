@@ -12,7 +12,7 @@ apply plugin: 'jetty'
 apply plugin: 'maven'
 
 group = 'org.gromitsoft'
-version = '1.0.2-SNAPSHOT'
+version = '1.0.3-SNAPSHOT'
 
 
 repositories {
@@ -29,7 +29,7 @@ configurations {
 
 dependencies {
     providedCompile 'org.apache.tomcat:tomcat-servlet-api:7.0.37'    
-    api 'org.gromitsoft:gromit:1.0.2-SNAPSHOT'
+    api 'org.gromitsoft:gromit:1.0.3-SNAPSHOT'
 }
 
 /*
