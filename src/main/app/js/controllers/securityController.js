@@ -21,7 +21,9 @@ angular.module('gromitSample').controller('securityController', function($scope,
         gromit.ClientId = $scope.secData.clientid;
                 
         gromit.AuthUrl = $scope.secData.authserver + '/osp/a/idm/auth/oauth2/grant';
-        gromit.AuthLogoutUrl = $scope.secData.authserver + '/osp/a/idm/auth/app/logout';        
+        gromit.AuthLogoutUrl = $scope.secData.authserver + '/osp/a/idm/auth/app/logout';
+        
+        delete $scope.noUserMessage;
         gromit.get($scope.secData.apiserver + '/api/whoami', $http, function(data) {
             $scope.userName = data.principal;
             
@@ -36,6 +38,10 @@ angular.module('gromitSample').controller('securityController', function($scope,
                         })
                     });
                 });
+                
+                if ($scope.users.length === 0) {
+                    $scope.noUserMessage = 'You don\'t have any collected users in your Identity Governance server yet.'
+                }
             });
         });        
     };

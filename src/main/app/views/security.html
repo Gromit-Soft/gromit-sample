@@ -12,7 +12,7 @@
                 </div>
 
                 <div class="form-group">
-                    <h4>The location of your Access Review server</h4>
+                    <h4>The location of your Identity Governance server</h4>
                     <input type="text" class="form-control" ng-model="secData.apiserver" placeholder="http://yourserver:8080" required>
                 </div>
 
@@ -33,13 +33,15 @@
                 <a ng-click="doLogout()" class="logoutLink">Logout</a>
     
                 <div class="subtext">
-                    Here are some users from your AR server sorted alphabeticaly by name.
+                    Here are some users from your Identity Governance server sorted alphabeticaly by name.
                 </div>
                 
                 <p>
                     <span ng-repeat="user in users" class="user">
                         {{$index + 1}}. {{user.name.attributeValue}}<br />
                     </span>
+                    
+                    <span>{{noUserMessage}}</span>
                 </p>
             </div>
         </div>
@@ -49,7 +51,7 @@
             <h3>Configuration</h3>
             
             <p>
-                This sample works against Access Review and OSP.  You must add the following properties to the global configuration of your Access Review server to make this sample work.
+                This sample works against Identity Governance and OSP.  You must add the following properties to the global configuration of your Identity Governance server to make this sample work.
             </p>
             
             <pre><code>com.netiq.iac2.clientID = iac2
@@ -89,7 +91,7 @@ gromit.get('http://myserver/myapi', $http, function(data) {
             </p>
             
             <p>
-                The sample on this page works against AR to get a count of the users on the server, but this library can work against any OAuth2 compliant service.  It works by showing an iFrame with the login page so you don't lose any of the data on the current page.
+                The sample on this page works against Identity Governance to get a count of the users on the server, but this library can work against any OAuth2 compliant service.  It works by showing an iFrame with the login page so you don't lose any of the data on the current page.
             </p>
             
             <p>
