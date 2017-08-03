@@ -5,10 +5,9 @@
  *
  ******************************************************************************/
 
-defaultTasks 'extractGromitJS', 'jettyRun'
+defaultTasks 'extractGromitJS', 'appRun'
 
 apply plugin: 'war'
-apply plugin: 'jetty'
 apply plugin: 'maven'
 
 group = 'org.gromitsoft'
@@ -18,6 +17,7 @@ version = '1.0.3-SNAPSHOT'
 repositories {
     mavenCentral()
     mavenLocal()
+    jcenter()
     maven {
         url 'http://oss.sonatype.org/content/groups/public'
     }
@@ -53,15 +53,19 @@ buildscript {
   repositories {
       mavenCentral()
       mavenLocal()
+      jcenter()
       maven {
           url 'http://oss.sonatype.org/content/groups/public'
       }
   }
   dependencies {
+    classpath 'org.akhikhl.gretty:gretty:+'
     classpath 'com.eriwen:gradle-js-plugin:1.12.0'
     classpath 'com.eriwen:gradle-css-plugin:1.11.1'
   }
 }
+
+apply plugin: 'org.akhikhl.gretty'
 
 apply plugin: "com.eriwen.gradle.js"
 apply plugin: 'css'
@@ -239,18 +243,9 @@ war.doFirst {
     tasks.gzipCss.execute()
 }
 
-jettyRun.doFirst {
-    
-}
-
-jettyRun {
-    webAppSourceDirectory file('src/main/app/')
-    httpPort 8081
-    contextPath '/'
-    webXml file('src/main/webapp/WEB-INF/web.xml')
-}
-
-jettyRunWar {
-    httpPort 8081
-    contextPath '/'
+gretty {
+  httpPort = 8081
+  contextPath = '/'
+  servletContainer = 'jetty9'
+  extraResourceBase 'src/main/app'
 }
