@@ -40,7 +40,7 @@ angular.module('gromitSample').controller('securityController', function($scope,
                 });
                 
                 if ($scope.users.length === 0) {
-                    $scope.noUserMessage = 'You don\'t have any collected users in your Identity Governance server yet.'
+                    $scope.noUserMessage = 'You don\'t have any collected users in your Identity Governance server yet.';
                 }
             });
         });        
