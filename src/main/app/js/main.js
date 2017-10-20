@@ -11,7 +11,6 @@
  */
 var app = angular.module('gromitSample', [
   'ngRoute',
-  'ui.bootstrap',
   'gromitsoft'
 ]);
 
