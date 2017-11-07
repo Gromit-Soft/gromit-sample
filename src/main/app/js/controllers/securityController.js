@@ -14,8 +14,8 @@ angular.module('gromitSample').controller('securityController', function($scope,
     $scope.secData = {};
     
     $scope.secData.clientid = 'iac2';
-    $scope.secData.authserver = 'http://192.168.1.76:8080';
-    $scope.secData.apiserver = 'http://192.168.1.76:8080';
+    $scope.secData.authserver = 'http://192.168.0.76:8080';
+    $scope.secData.apiserver = 'http://192.168.0.76:8080';
     
     $scope.doGetData = function() {
         gromit.ClientId = $scope.secData.clientid;
